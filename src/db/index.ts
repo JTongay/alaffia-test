@@ -1,14 +1,18 @@
-import { Pool } from 'pg'
+import pkg from 'pg';
+const { Pool } = pkg;
 import { Kysely, PostgresDialect } from 'kysely'
+import 'dotenv/config';
+import { DB } from './types';
 
 const dialect = new PostgresDialect({
     pool: new Pool({
-      database: 'test',
-      host: 'localhost',
-      user: 'admin',
-      port: 5432,
+      database: process.env.DB_NAME,
+      host: process.env.DB_WRITER_ENDPOINT,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      port: parseInt(process.env.DB_PORT),
       max: 10,
     })
   });
 
-export const db = new Kysely({dialect});
+export const db = new Kysely<DB>({dialect});

@@ -59,3 +59,24 @@ CREATE TABLE facility_locations (
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
 );
+
+-- Creates the initial roles
+insert into roles (name) values ('administrator'), ('doctor');
+-- Creates a couple of users. At least 1 admin and 1 doctor
+insert into users (first_name, last_name, email, role_id) values 
+    ('Joey', 'Tongay', 'joey.tongay@gmail.com', (select id from roles where name = 'administrator')),
+    ('Doctor', 'Person', 'doctor.person@example.com', (select id from roles where name = 'doctor'));
+-- Creates a couple of facilities
+insert into facilities (name) values ('Sick people place'), ('Kinda sick people place');
+-- Creates a couple of locations
+insert into locations (state, zip, line1, line2) values ('TX', 78754, '123 Fake St', NULL), ('NY', 10001, '456 Fake St', 'Apt 1');
+
+-- Assigns the users to the facilities
+insert into user_facilities (user_id, facility_id) values 
+    ((select id from users where email = 'joey.tongay@gmail.com'), (select id from facilities where name = 'Sick people place')),
+    ((select id from users where email = 'doctor.person@example.com'), (select id from facilities where name = 'Kinda sick people place'));
+
+-- Assigns the facilities to the locations
+insert into facility_locations (facility_id, location_id) values 
+    ((select id from facilities where name = 'Sick people place'), (select id from locations where state = 'TX')),
+    ((select id from facilities where name = 'Kinda sick people place'), (select id from locations where state = 'NY'));

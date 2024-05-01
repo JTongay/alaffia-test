@@ -1,16 +1,39 @@
+scalar Date
+
 type Query {
     test: String!
+    location: Location!
+    user(id: ID!): User!
 }
 
 type Facility {
     id: ID!
+    name: String!
+    createdAt: Date!
+}
+
+type Location {
+    id: ID!
+    state: String!
+    zip: Int!
+    address: String!
+
+    facility: Facility!
+    users: [User!]!
 }
 
 type User {
     id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+    role: Role!
+    createdAt: Date!
+
+    facilities: [Facility!]!
 }
 
-enum Roles {
+enum Role {
     Doctor
     Administrator
 }

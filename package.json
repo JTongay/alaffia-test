@@ -6,7 +6,8 @@
   "scripts": {
     "postinstall": "npm run compile",
     "compile": "tsc --project tsconfig.json && node_modules/.bin/tsc-alias -p tsconfig.json",
-    "start": "npm run compile && node ./dist/index.js"
+    "start": "npm run compile && node ./dist/index.js",
+    "db:gen": "kysely-codegen"
   },
   "type": "module",
   "keywords": [],
@@ -16,6 +17,8 @@
     "@apollo/server": "^4.10.4",
     "@graphql-tools/graphql-file-loader": "^8.0.1",
     "@graphql-tools/load": "^8.0.2",
+    "dataloader": "^2.2.2",
+    "dotenv": "^16.4.5",
     "graphile-migrate": "^1.4.1",
     "graphql": "^16.8.1",
     "kysely": "^0.27.3",
@@ -24,6 +27,7 @@
   "devDependencies": {
     "@types/node": "^20.12.7",
     "@types/pg": "^8.11.5",
+    "kysely-codegen": "^0.15.0",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.8",
     "typescript": "^5.2.2"
