@@ -1,4 +1,4 @@
-import type { BaseContext } from "@apollo/server";
+import type { AlaffiaContext } from "@/domain/AlaffiaContext";
 
 export abstract class BaseResolver<
     ParentType = unknown,
@@ -8,7 +8,7 @@ export abstract class BaseResolver<
   public resolve = async (
       parent: ParentType,
       args: ArgsType,
-      context: BaseContext
+      context: AlaffiaContext
   ): Promise<ReturnType> => {
     return await this.authCheck(parent, args, context);
   };
@@ -16,7 +16,7 @@ export abstract class BaseResolver<
   private authCheck = async (
     parent: ParentType,
     args: ArgsType,
-    context: BaseContext
+    context: AlaffiaContext
   ): Promise<ReturnType> => {
     return this.resolver(parent, args, context);
   };
@@ -25,7 +25,7 @@ export abstract class BaseResolver<
   protected abstract resolver(
     parent: ParentType,
     args: ArgsType,
-    context: BaseContext
+    context: AlaffiaContext
   ): Promise<ReturnType>
 }
 

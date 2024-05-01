@@ -23,4 +23,13 @@ export class UserDatasource {
         const users = await db.selectFrom('users').selectAll().execute();
         return users.map(user => new User(user));
     }
+
+    async getUserRole(roleId: string): Promise<string> {
+        const response = await db
+            .selectFrom('roles')
+            .where("roles.id", "=", roleId)
+            .select("name")
+            .executeTakeFirstOrThrow();
+        return response.name;
+    }
 }

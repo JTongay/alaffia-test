@@ -4,6 +4,7 @@ type Query {
     test: String!
     location: Location!
     user(id: ID!): User!
+    users: [User!]!
 }
 
 type Facility {

@@ -7,6 +7,7 @@ export class User {
     lastName: string;
     email: string;
     createdAt: Date;
+    roleId: string;
 
     constructor(response: Selectable<Users>) {
         this.id = response.id;
@@ -14,5 +15,6 @@ export class User {
         this.lastName = response.last_name;
         this.email = response.email;
         this.createdAt = response.created_at;
+        this.roleId = response.role_id;
     }
 }
