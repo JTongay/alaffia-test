@@ -11,6 +11,7 @@ import { EnumResolvers } from "./graphql/resolvers/RoleEnum";
 import { FacilityDatasource } from "./db/datasources/Facility.datasource";
 import { FacitilityResolvers } from "./graphql/resolvers/Facility";
 import { LocationDatasource } from "./db/datasources/Location.datasource";
+import { LocationResolvers } from "./graphql/resolvers/Location";
 
 function loadAlaffiaSchema() {
     return loadSchemaSync(path.join("src", "graphql", "Schema.graphql"), {
@@ -25,6 +26,7 @@ const server = new ApolloServer<AlaffiaContext>({
         ...QueryResolvers,
         ...UserResolvers,
         ...FacitilityResolvers,
+        ...LocationResolvers,
         ...EnumResolvers
     },
     plugins: [],

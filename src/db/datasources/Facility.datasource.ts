@@ -35,4 +35,18 @@ export class FacilityDatasource {
 
         return response.map((location) => new Location(location));
     }
+
+    public async getFacilityByLocationId(locationId: string) {
+        const response = await db.selectFrom('facilities')
+            .innerJoin('facility_locations', 'facility_locations.facility_id', 'facilities.id')
+            .where('facility_locations.location_id', '=', locationId)
+            .select([
+                "facilities.id",
+                "facilities.name",
+                "facilities.created_at",
+                "facilities.updated_at"
+            ])
+            .executeTakeFirstOrThrow();
+        return new Facility(response);
+    }
 }
