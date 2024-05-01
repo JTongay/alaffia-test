@@ -1,0 +1,16 @@
+type Query {
+    test: String!
+}
+
+type Facility {
+    id: ID!
+}
+
+type User {
+    id: ID!
+}
+
+enum Roles {
+    Doctor
+    Administrator
+}
