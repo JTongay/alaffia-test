@@ -12,7 +12,8 @@ export class LocationDatasource {
                 "locations.state",
                 "locations.zip",
                 "locations.created_at",
-                "locations.updated_at"
+                "locations.updated_at",
+                "locations.facility_id"
             ])
             .executeTakeFirstOrThrow();
 
@@ -28,7 +29,8 @@ export class LocationDatasource {
                 "locations.state",
                 "locations.zip",
                 "locations.created_at",
-                "locations.updated_at"
+                "locations.updated_at",
+                "locations.facility_id"
             ])
             .execute();
         return response.map((location) => new Location(location));

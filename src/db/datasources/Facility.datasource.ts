@@ -20,8 +20,8 @@ export class FacilityDatasource {
 
     public async getLocationsForFacility(facilityId: string) {
         const response = await db.selectFrom('locations')
-        .innerJoin('facility_locations', 'facility_locations.location_id', 'locations.id')
-        .where('facility_locations.facility_id', '=', facilityId)
+        .innerJoin('facilities', 'facilities.id', 'locations.facility_id')
+        .where('facilities.id', '=', facilityId)
         .select([
             "locations.id",
             "locations.line1",
@@ -29,7 +29,8 @@ export class FacilityDatasource {
             "locations.state",
             "locations.zip",
             "locations.created_at",
-            "locations.updated_at"
+            "locations.updated_at",
+            "locations.facility_id"
         ])
         .execute();
 
@@ -38,8 +39,8 @@ export class FacilityDatasource {
 
     public async getFacilityByLocationId(locationId: string) {
         const response = await db.selectFrom('facilities')
-            .innerJoin('facility_locations', 'facility_locations.facility_id', 'facilities.id')
-            .where('facility_locations.location_id', '=', locationId)
+            .innerJoin('locations', 'locations.facility_id', 'facilities.id')
+            .where('locations.id', '=', locationId)
             .select([
                 "facilities.id",
                 "facilities.name",

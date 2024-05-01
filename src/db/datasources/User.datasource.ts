@@ -27,8 +27,8 @@ export class UserDatasource {
     async getUsersByLocation(locationId: string): Promise<User[]> {
         const response = await db.selectFrom('user_facilities')
             .innerJoin('users', 'user_facilities.user_id', 'users.id')
-            .innerJoin('facility_locations', 'facility_locations.facility_id', 'user_facilities.facility_id')
-            .where('facility_locations.location_id', '=', locationId)
+            .innerJoin('locations', 'locations.facility_id', 'user_facilities.facility_id')
+            .where('locations.id', '=', locationId)
             .select([
                 "users.id",
                 "users.first_name",

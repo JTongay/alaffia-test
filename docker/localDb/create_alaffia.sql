@@ -40,6 +40,7 @@ CREATE TABLE locations (
     zip INT NOT NULL,
     line1 VARCHAR(50) NOT NULL,
     line2 VARCHAR(50),
+    facility_id UUID REFERENCES facilities(id) NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
 );
@@ -48,14 +49,6 @@ CREATE TABLE user_facilities (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID REFERENCES users(id) NOT NULL,
     facility_id UUID REFERENCES facilities(id) NOT NULL,
-    created_at TIMESTAMP DEFAULT now(),
-    updated_at TIMESTAMP DEFAULT now()
-);
-
-CREATE TABLE facility_locations (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    facility_id UUID REFERENCES facilities(id) NOT NULL,
-    location_id UUID REFERENCES locations(id) NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
 );
@@ -69,14 +62,11 @@ insert into users (first_name, last_name, email, role_id) values
 -- Creates a couple of facilities
 insert into facilities (name) values ('Sick people place'), ('Kinda sick people place');
 -- Creates a couple of locations
-insert into locations (state, zip, line1, line2) values ('TX', 78754, '123 Fake St', NULL), ('NY', 10001, '456 Fake St', 'Apt 1');
+insert into locations (state, zip, line1, line2, facility_id) values 
+    ('TX', 78754, '123 Fake St', NULL, (select id from facilities where name = 'Sick people place')), 
+    ('NY', 10001, '456 Fake St', 'Apt 1', (select id from facilities where name = 'Kinda sick people place'));
 
 -- Assigns the users to the facilities
 insert into user_facilities (user_id, facility_id) values 
     ((select id from users where email = 'joey.tongay@gmail.com'), (select id from facilities where name = 'Sick people place')),
     ((select id from users where email = 'doctor.person@example.com'), (select id from facilities where name = 'Kinda sick people place'));
-
--- Assigns the facilities to the locations
-insert into facility_locations (facility_id, location_id) values 
-    ((select id from facilities where name = 'Sick people place'), (select id from locations where state = 'TX')),
-    ((select id from facilities where name = 'Kinda sick people place'), (select id from locations where state = 'NY'));

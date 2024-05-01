@@ -13,16 +13,9 @@ export interface Facilities {
   updated_at: Generated<Timestamp | null>;
 }
 
-export interface FacilityLocations {
-  created_at: Generated<Timestamp | null>;
-  facility_id: string;
-  id: Generated<string>;
-  location_id: string;
-  updated_at: Generated<Timestamp | null>;
-}
-
 export interface Locations {
   created_at: Generated<Timestamp | null>;
+  facility_id: string;
   id: Generated<string>;
   line1: string;
   line2: string | null;
@@ -58,7 +51,6 @@ export interface Users {
 
 export interface DB {
   facilities: Facilities;
-  facility_locations: FacilityLocations;
   locations: Locations;
   roles: Roles;
   user_facilities: UserFacilities;
