@@ -3,6 +3,6 @@ import { resolverMap } from "@/resolvers/resolverMap";
 
 export const FacitilityResolvers = resolverMap({
     Facility: {
-        locations: new LocationsResolver()
+        locations: new LocationsResolver(),
     }
 })
