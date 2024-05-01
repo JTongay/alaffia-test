@@ -9,6 +9,8 @@ import { UserDatasource } from "./db/datasources/User.datasource";
 import { UserResolvers } from "./graphql/resolvers/User";
 import { EnumResolvers } from "./graphql/resolvers/RoleEnum";
 import { FacilityDatasource } from "./db/datasources/Facility.datasource";
+import { FacitilityResolvers } from "./graphql/resolvers/Facility";
+import { LocationDatasource } from "./db/datasources/Location.datasource";
 
 function loadAlaffiaSchema() {
     return loadSchemaSync(path.join("src", "graphql", "Schema.graphql"), {
@@ -22,6 +24,7 @@ const server = new ApolloServer<AlaffiaContext>({
     resolvers: {
         ...QueryResolvers,
         ...UserResolvers,
+        ...FacitilityResolvers,
         ...EnumResolvers
     },
     plugins: [],
@@ -33,7 +36,8 @@ const { url } = await startStandaloneServer(server, {
     },
     context: async ({req, res}) => ({
         userDatasource: new UserDatasource(),
-        facilityDatasource: new FacilityDatasource()
+        facilityDatasource: new FacilityDatasource(),
+        locationDatasource: new LocationDatasource()
     })
 });
 

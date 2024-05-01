@@ -2,15 +2,18 @@ scalar Date
 
 type Query {
     test: String!
-    location: Location!
     user(id: ID!): User!
     users: [User!]!
+    locations: [Location!]!
+    location(input: UsersByLocationInput!): Location!
 }
 
 type Facility {
     id: ID!
     name: String!
     createdAt: Date!
+    
+    locations: [Location!]!
 }
 
 type Location {
@@ -18,6 +21,7 @@ type Location {
     state: String!
     zip: Int!
     address: String!
+    addressFull: String!
 
     facility: Facility!
     users: [User!]!
@@ -37,4 +41,11 @@ type User {
 enum Role {
     Doctor
     Administrator
+}
+
+# I'm not 100% sure what the input type should
+# be here based on the directions, but this just 
+# makes the most sense
+input UsersByLocationInput {
+    locationId: ID!
 }
