@@ -8,6 +8,7 @@ import { AlaffiaContext } from "./domain/AlaffiaContext";
 import { UserDatasource } from "./db/datasources/User.datasource";
 import { UserResolvers } from "./graphql/resolvers/User";
 import { EnumResolvers } from "./graphql/resolvers/RoleEnum";
+import { FacilityDatasource } from "./db/datasources/Facility.datasource";
 
 function loadAlaffiaSchema() {
     return loadSchemaSync(path.join("src", "graphql", "Schema.graphql"), {
@@ -31,7 +32,8 @@ const { url } = await startStandaloneServer(server, {
         port: 8080
     },
     context: async ({req, res}) => ({
-        userDatasource: new UserDatasource()
+        userDatasource: new UserDatasource(),
+        facilityDatasource: new FacilityDatasource()
     })
 });
 
