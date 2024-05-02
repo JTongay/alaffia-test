@@ -10,13 +10,14 @@
       "module": "esnext",
       "moduleResolution": "node",
       "esModuleInterop": true,
-      "types": ["node"],
+      "types": ["node", "jest"],
       "paths": {
         "@/*": ["src/*"],
         "test/*": ["spec/*"]
       },
+      "allowJs": true
     },
-    "include": ["src"],
+    "include": ["src", "spec", "jest.config.ts"],
     "exclude": ["node_modules"],
     "tsc-alias": {
         "verbose": true,

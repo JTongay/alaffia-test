@@ -13,7 +13,7 @@ import { FacitilityResolvers } from "./graphql/resolvers/Facility";
 import { LocationDatasource } from "./db/datasources/Location.datasource";
 import { LocationResolvers } from "./graphql/resolvers/Location";
 
-function loadAlaffiaSchema() {
+export function loadAlaffiaSchema() {
     return loadSchemaSync(path.join("src", "graphql", "Schema.graphql"), {
         loaders: [new GraphQLFileLoader()]
     });
@@ -32,7 +32,7 @@ const server = new ApolloServer<AlaffiaContext>({
     plugins: [],
 })
 
-const { url } = await startStandaloneServer(server, {
+const api = await startStandaloneServer(server, {
     listen: {
         port: 8080
     },
@@ -43,4 +43,4 @@ const { url } = await startStandaloneServer(server, {
     })
 });
 
-console.log(`Listening on ${url}`);
+console.log(`Listening on ${api.url}`);
